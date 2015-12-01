@@ -17,16 +17,15 @@ RUN apt-get clean -q && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN rm -fR /usr/share/nginx/html/
 RUN git clone https://github.com/getgrav/grav.git /usr/share/nginx/html/
 
+#Install Grav
+WORKDIR /usr/share/nginx/html/
+RUN bin/composer.phar self-update
+RUN bin/grav install
 
 #Install datahub docs
 RUN rm -fR /usr/share/nginx/html/user/
 COPY . /usr/share/nginx/html/user/
 
-
-#Install Grav
-WORKDIR /usr/share/nginx/html/
-RUN bin/composer.phar self-update
-RUN bin/grav install
 RUN chown www-data:www-data .
 RUN chown -R www-data:www-data *
 RUN find . -type f | xargs chmod 664
