@@ -23,8 +23,8 @@ RUN bin/composer.phar self-update
 RUN bin/grav install
 
 #Install datahub docs
-RUN rm -fR /usr/share/nginx/html/user/
-COPY . /usr/share/nginx/html/user/
+#RUN rm -fR /usr/share/nginx/html/user/
+#COPY . /usr/share/nginx/html/user/
 
 RUN chown www-data:www-data .
 RUN chown -R www-data:www-data *
