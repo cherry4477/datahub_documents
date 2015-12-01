@@ -3,6 +3,8 @@ FROM php:5.6-apache
 
 MAINTAINER hank.sunday <hank.sunday@gmail.com>
 
+RUN apt-get install git
+
 RUN git clone https://github.com/getgrav/grav.git /var/www/html/
 WORKDIR /var/www/html/
 RUN bin/composer.phar self-update && bin/grav install
