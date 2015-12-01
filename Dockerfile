@@ -24,11 +24,5 @@ RUN rm -fR /var/www/html/user/
 COPY . /var/www/html/user/
 
 #权限
-chown www-data:www-data .
-chown -R www-data:www-data *
-find . -type f | xargs chmod 664
-find ./bin -type f | xargs chmod 775
-find . -type d | xargs chmod 775
-find . -type d | xargs chmod +s
-umask 0002
+RUN chown www-data:www-data . && chown -R www-data:www-data * && find . -type f | xargs chmod 664 &&  find ./bin -type f | xargs chmod 775 &&  find . -type d | xargs chmod 775 &&  find . -type d | xargs chmod +s &&  umask 0002
 
