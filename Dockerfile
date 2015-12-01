@@ -4,7 +4,6 @@ FROM php:5.6-apache
 MAINTAINER hank.sunday <hank.sunday@gmail.com>
 
 RUN apt-get update -q -y && apt-get install -y \
-        php-mbstring \
         git-core \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
