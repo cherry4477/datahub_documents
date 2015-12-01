@@ -1,0 +1,11 @@
+email: hank.sunday@gmail.com
+access:
+  admin:
+    login: true
+    super: true
+  site:
+    login: true
+fullname: hehongling
+title: admin
+state: enabled
+hashed_password: $2y$10$m8is6r4jN8rsb7RVZB.HduHEaKrYjPNC/A6S3.ixqm86ZQVSOYwaS
