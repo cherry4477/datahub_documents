@@ -16,7 +16,7 @@ RUN apt-get update -q -y && apt-get install -y \
 RUN apt-get clean -q && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN git clone https://github.com/getgrav/grav.git /var/www/html/
-WORKDIR /var/www/html/
+
 RUN bin/composer.phar self-update && bin/grav install
 
 #Install datahub docs
@@ -24,11 +24,12 @@ RUN rm -fR /var/www/html/user/
 COPY . /var/www/html/user/
 
 #权限
-RUN chown www-data:www-data /var/www/html/ 
-RUN chown -R www-data:www-data /var/www/html/
-RUN find /var/www/html/ -type f | xargs chmod 664 
-RUN find /var/www/html/bin -type f | xargs chmod 775 
-RUN find /var/www/html/ -type d | xargs chmod 775 
-RUN find /var/www/html/ -type d | xargs chmod +s 
+WORKDIR /var/www/html/
+RUN chown www-data:www-data .
+RUN chown -R www-data:www-data *
+RUN find . -type f | xargs chmod 664
+RUN find . -type d | xargs chmod 775
+RUN find . -type d | xargs chmod +s
 RUN umask 0002
+
 
