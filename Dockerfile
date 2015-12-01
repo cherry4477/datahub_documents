@@ -3,7 +3,7 @@ FROM php:5.6-apache
 
 MAINTAINER hank.sunday <hank.sunday@gmail.com>
 
-RUN apt-get update -q 
+RUN apt-get update -q -y
 RUN apt-get install git-core
 
 RUN git clone https://github.com/getgrav/grav.git /var/www/html/
