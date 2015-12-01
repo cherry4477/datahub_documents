@@ -21,11 +21,6 @@ RUN git clone https://github.com/getgrav/grav.git /usr/share/nginx/html/
 WORKDIR /usr/share/nginx/html/
 RUN bin/composer.phar self-update
 RUN bin/grav install
-
-#Install datahub docs
-#RUN rm -fR /usr/share/nginx/html/user/
-#COPY . /usr/share/nginx/html/user/
-
 RUN chown www-data:www-data .
 RUN chown -R www-data:www-data *
 RUN find . -type f | xargs chmod 664
@@ -86,4 +81,4 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 VOLUME /root/.ssh/ /etc/nginx/ /usr/share/nginx/html/
 
 #Public ports
-EXPOSE 80
+EXPOSE 80 22
