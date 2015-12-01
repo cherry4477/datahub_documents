@@ -86,4 +86,4 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 VOLUME /root/.ssh/ /etc/nginx/ /usr/share/nginx/html/
 
 #Public ports
-EXPOSE 80 22
+EXPOSE 80
