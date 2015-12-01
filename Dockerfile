@@ -4,6 +4,7 @@ FROM php:5.6-apache
 MAINTAINER hank.sunday <hank.sunday@gmail.com>
 
 RUN apt-get update -q -y && apt-get install -y \
+        php5 php5-cli php5-fpm php5-gd php5-curl php5-apcu \
         git-core \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
