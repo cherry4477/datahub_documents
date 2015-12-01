@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:5.5-apache
 
 
 MAINTAINER hank.sunday <hank.sunday@gmail.com>
