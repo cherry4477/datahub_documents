@@ -1,0 +1,10 @@
+enabled: true
+color: blue
+dropdown:
+  enabled: true
+streams:
+  scheme:
+    theme:
+      type: ReadOnlyStream
+      paths:
+        - user/themes/agency
