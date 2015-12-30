@@ -312,7 +312,7 @@ textarea, input[type="email"], input[type="number"], input[type="password"], inp
     padding-bottom: 3rem;
     max-width: 80%; }
   #chapter h3 {
-    font-family: "Muli", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-family: Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
     font-weight: 400;
     text-align: center; }
   #chapter h1 {
@@ -330,12 +330,12 @@ textarea, input[type="email"], input[type="number"], input[type="password"], inp
     margin: 0; }
 
 body {
-  font-family: "Muli", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-family: Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
   letter-spacing: -0.03rem;
   font-weight: 400; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Montserrat", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-family: Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
   font-weight: 400;
   text-rendering: optimizeLegibility;
   line-height: 150%;
@@ -382,7 +382,7 @@ blockquote > blockquote > blockquote {
       top: 2px;
       color: #fff;
       font-family: FontAwesome;
-      content: 'ïª';
+      content: 'ï?;
       left: 10px; }
     blockquote > blockquote > blockquote p:first-child:after {
       position: absolute;
@@ -560,7 +560,7 @@ td {
   z-index: 1000000;
   display: none;
   padding: 5px 8px;
-  font: normal normal 11px/1.5 "Muli", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font: normal normal 11px/1.5 Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
   color: #fff;
   text-align: center;
   text-decoration: none;
