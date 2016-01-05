@@ -55,9 +55,10 @@ taxonomy:
 
 	3) datahub pub myrepo/myitem:mytag test.txt
 
-发布一名称为 mytag 的 tag ，所属 dataitem 是 myitem ，对应数据文件是 `/home/myusr/data/topub/test.txt`
+发布一名称为 mytag 的 tag ，所属 dataitem 是 myitem ，对应数据文件是 `/home/myusr/data/topub/test.txt`。
 
 ### pull 数据
+
 pull 数据是数据需求方的行为。
 
 需求方用户登录 http://hub.dataos.io ，查看、搜索 repository 、dataitem ，然后订购自己所需的 dataitem 。订购成功后，在 tag 详情页面，点击复制，复制 tag 全名，即可在客户端 pull 此 dataitem 下的 tag 所对应的数据。
@@ -70,4 +71,4 @@ datahub client 操作如下：
 	
     2）datahub pull repotest/itemtest:tagtest mydp://mydir1 –d tagdestname.txt
 
-pull 一个 tag 对应的数据到 mydp 中，子路径是 mydir1
+pull 一个 tag 对应的数据到 mydp 中，子路径是 mydir1。

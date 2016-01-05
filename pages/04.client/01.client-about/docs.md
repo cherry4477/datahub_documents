@@ -5,12 +5,12 @@ taxonomy:
         - docs
 ---
 
-datahub程序具有两个功能：
+DataHub 程序具有两个功能：
 1. client
 2. daemon
 
-datahub client是用于在命令行输入指令的客户端，其功能只是向daemon发送指令，并展示返回信息。
+DataHub client 是用于在命令行输入指令的客户端，其功能只是向 daemon 发送指令，并展示返回信息。
 
-datahub daemon是常驻后台的进程，负责接收client的指令，并执行，即datahub的实际功能都是通过daemon实现的。
+DataHub daemon 是常驻后台的进程，负责接收 client 的指令，并执行，即 datahub 的实际功能都是通过 daemon 实现的。
 
-二者启动命令相同，通过启动参数区分，启动命令都是datahub， 带参数—daemon，表示启动datahub daemon，不带参数--daemon表示启动datahub client。
+二者启动命令相同，通过启动参数区分，启动命令都是 datahub， 带参数 --daemon，表示启动 DataHub daemon，不带参数 --daemon 表示启动 DataHub client。
