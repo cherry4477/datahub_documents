@@ -171,9 +171,12 @@
         this.form = $(el);
         this.form.data('grav-form-instance', this);
         this.form.on('submit', function (e) {
-            this.submit(this.ajax);
-            e.preventDefault();
-            return false;
+            if (Form.findElements(this.form, 'input[type="file"]', '', false).length == 0) {
+                //Only process the form if it does not contain file elements, otherwise we cannot get $_FILES correctly
+                this.submit(this.ajax);
+                e.preventDefault();
+                return false;
+            }
         }.bind(this));
 
         this.scanned = false;
@@ -289,7 +292,7 @@
             values = {};
 
         // Get form values that are not handled by JS framework
-        Form.findElements(this.form, 'input, textarea', '', false).each(function(input) {
+        Form.findElements(this.form, 'input:not([type="file"]), textarea', '', false).each(function(input) {
             var input = $(this),
                 name = input.attr('name'),
                 parent = input.parent('[data-grav-disabled]'),
@@ -322,7 +325,8 @@
         if (!ajax) {
             var form = $('<form>').attr({ method: method, action: action });
 
-            for (var name in values) { if (values.hasOwnProperty(name)) {
+            for (var name in values) {
+                if (values.hasOwnProperty(name)) {
                     $('<input>').attr({ type: 'hidden', name: name, value: values[name] }).appendTo(form);
                 }
             }

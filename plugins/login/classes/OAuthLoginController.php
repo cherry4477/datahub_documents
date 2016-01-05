@@ -102,7 +102,7 @@ class OAuthLoginController extends Controller
         }
 
         if (!$this->service || empty($config)) {
-            $this->setMessage($t->translate(['LOGIN_PLUGIN.OAUTH_PROVIDER_NOT_SUPPORTED', $this->action]));
+            $this->setMessage($t->translate(['PLUGIN_LOGIN.OAUTH_PROVIDER_NOT_SUPPORTED', $this->action]));
             return true;
         }
 
@@ -111,16 +111,16 @@ class OAuthLoginController extends Controller
         if (is_bool($authenticated)) {
             $this->reset();
             if ($authenticated) {
-                $this->setMessage($t->translate('LOGIN_PLUGIN.LOGIN_SUCCESSFUL'));
+                $this->setMessage($t->translate('PLUGIN_LOGIN.LOGIN_SUCCESSFUL'));
             } else {
-                $this->setMessage($t->translate('LOGIN_PLUGIN.ACCESS_DENIED'));
+                $this->setMessage($t->translate('PLUGIN_LOGIN.ACCESS_DENIED'));
             }
 
             // Redirect to current URI
             $referrer = $this->grav['uri']->url(true);
             $this->setRedirect($referrer);
         } elseif (!$this->grav['session']->oauth) {
-            $this->setMessage($t->translate(['LOGIN_PLUGIN.OAUTH_PROVIDER_NOT_SUPPORTED', $this->action]));
+            $this->setMessage($t->translate(['PLUGIN_LOGIN.OAUTH_PROVIDER_NOT_SUPPORTED', $this->action]));
         }
 
         return true;
@@ -295,7 +295,7 @@ class OAuthLoginController extends Controller
      */
     protected function authenticate($username, $id, $email, $language = '')
     {
-        $accountFile = Inflector::underscorize($username);
+        $accountFile = $this->grav['inflector']->underscorize($username);
         $user = User::load(strtolower("$accountFile.{$this->action}"));
 
         if ($user->exists()) {
@@ -354,7 +354,7 @@ class OAuthLoginController extends Controller
         /** @var User $user */
         $user = $this->grav['user'];
 
-        $accountFile = Inflector::underscorize($data['username']);
+        $accountFile = $this->grav['inflector']->underscorize($data['username']);
         $accountFile = $this->grav['locator']->findResource('user://accounts/' . strtolower("$accountFile.{$this->action}") . YAML_EXT, true, true);
 
         $user->set('username', $data['username']);

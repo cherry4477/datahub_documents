@@ -1,12 +1,12 @@
 title: DataHub
 author:
-  name: 'Joe Bloggs'
-  email: joe@test.com
+  name: Asiainfo
+  email: datahub@asiainfo.com
 taxonomies:
   - category
   - tag
 metadata:
-  description: 'Grav is an easy to use, yet powerful, open source flat-file CMS'
+  description: 'DataHub 文档'
 summary:
   enabled: true
   format: short

@@ -1,3 +1,25 @@
+# v2.1.0
+## 12/18/2015
+
+1. [](#new)
+    * Added missing `content_type` to email.yaml
+    * Added default values for CC and BCC
+ 1. [](#improved)
+    * Improved documentation of new email params in `README.md`
+    * Moved config setting of `mailer.default` to `mailer.engine`
+
+# v2.0.0
+## 12/11/2015
+
+1. [](#new)
+	* Added support for from/sender name (Thomas Keitel)
+	* Added support for message content type (Thomas Keitel)
+	* Added support for reply addresses (Thomas Keitel)
+	* Added support for CC/BCC (Thomas Keitel)
+	* Added support for multiple body parts (Thomas Keitel)
+1. [](#bugfix)
+    * Fix email engine selection (z38)
+
 # v1.0.0
 ## 11/20/2015
 

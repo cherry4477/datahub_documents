@@ -12,6 +12,7 @@ use Grav\Common\Plugins;
 use Grav\Common\Themes;
 use Grav\Common\Uri;
 use Grav\Common\User\User;
+use Grav\Common\Utils;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
 use RocketTheme\Toolbox\File\LogFile;
@@ -405,7 +406,7 @@ class Admin
     }
 
     /**
-     * Get All template types
+     * Get all template types
      *
      * @return array
      */
@@ -415,13 +416,27 @@ class Admin
     }
 
     /**
-     * Get All modular template types
+     * Get all modular template types
      *
      * @return array
      */
     public function modularTypes()
     {
         return Pages::modularTypes();
+    }
+
+    /**
+     * Get all access levels
+     *
+     * @return array
+     */
+    public function accessLevels()
+    {
+        if (method_exists($this->grav['pages'], 'accessLevels')) {
+            return $this->grav['pages']->accessLevels();
+        } else {
+            return [];
+        }
     }
 
     /**
@@ -498,6 +513,10 @@ class Admin
         $pages = $this->grav['pages'];
 
         $latest = array();
+        
+        if(is_null($pages->routes())){
+            return;
+        }
 
         foreach ($pages->routes() as $url => $path) {
             $page = $pages->dispatch($url, true);
@@ -566,6 +585,16 @@ class Admin
             'chart_fill'  => $chart_fill,
             'chart_empty' => 100 - $chart_fill
         ];
+    }
+
+    /**
+     * Returns the list of available backups
+     *
+     * @return array Array containing the latest backups
+     */
+    public function backups()
+    {
+        return [];
     }
 
     /**
@@ -660,9 +689,19 @@ class Admin
     public static function adminLanguages()
     {
         $languages = [];
-        $lang_data = Yaml::parse(file_get_contents(__DIR__ . '/../languages.yaml'));
-        foreach ($lang_data as $lang => $values) {
+
+        $path = Grav::instance()['locator']->findResource('plugins://admin/languages');
+
+        /** @var \DirectoryIterator $directory */
+        foreach (new \DirectoryIterator($path) as $file) {
+            if ($file->isDir() || $file->isDot()) {
+                continue;
+            }
+
+            $lang = basename($file->getBasename(), '.yaml');
+
             $languages[$lang] = LanguageCodes::getNativeName($lang);
+
         }
         return $languages;
     }
@@ -701,6 +740,17 @@ class Admin
         }
 
         return $parent_route;
+    }
+
+    /**
+     * Static helper method to return the admin form nonce
+     *
+     * @return string
+     */
+    public static function getNonce()
+    {
+        $action = 'admin-form';
+        return Utils::getNonce($action);
     }
 
     /**
@@ -795,6 +845,11 @@ class Admin
 
             if (!$translation) {
                 $language = $this->grav['language']->getDefault() ?: 'en';
+                $translation = $this->grav['language']->getTranslation($language, $lookup, $array_support);
+            }
+
+            if (!$translation) {
+                $language = 'en';
                 $translation = $this->grav['language']->getTranslation($language, $lookup, $array_support);
             }
 

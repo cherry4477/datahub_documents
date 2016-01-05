@@ -1,3 +1,47 @@
+# v1.1.0
+## 12/18/2015
+
+1. [](#new)
+    * Croatian translation
+    * Added id, style, and disabled options to select fields
+1. [](#improved)
+    * Allow adding form labels and help text as lang strings
+    * Allow translating field content
+    * Allow translating button and checkbox labels
+    * Allow adding classes to the form field container with `field.outerclasses`
+    * Updated French translation
+1. [](#bugfix)
+    * Fixed error message on file upload
+    * Fixed overriding defaults for the file type in forms
+
+# v1.0.3
+## 12/11/2015
+
+1. [](#improved)
+    * Updated languages
+    * Allow an action to stop processing
+1. [](#bugfix)
+    * Fix captcha validation
+    * Fix issue where Form was unsetting valid page
+        
+# v1.0.2
+## 12/01/2015
+
+1. [](#bugfix)
+    * Fixed merge of defaults settings
+    * Support for arrays in `data.txt.twig`
+    * Fixed blueprint for admin
+    
+# v1.0.1
+## 12/01/2015
+
+1. [](#new)
+    * New **file upload** field
+    * Added modular form template
+    * Spanish translation
+    * Hungarian translation
+    * Italian translation
+
 # v1.0.0
 ## 11/21/2015
 

@@ -1,3 +1,112 @@
+# v1.0.4
+## 12/22/2015
+
+1. [](#improved)
+    * Improved File input field for admin
+    * Restore file inputs functionality and process form via JS if no inputs found
+1. [](#bugfix)
+    * Fix for the image preview in the file field on multi-lang sites
+    * Fix problem in form code introduced by fix to allow file uploads
+    * Fix redirect in deleting page media
+
+# v1.0.3
+## 12/20/2015
+
+1. [](#new)
+    * Added `pagemediaselect` field for use in pages
+1. [](#improved)
+    * Updated various languages
+    * Check for method `meetsRequirements()` prior to using
+    * Enable `file` form field to be used in plugins and theme blueprints
+
+# v1.0.2
+## 12/18/2015
+
+1. [](#bugfix)
+    * Fixed issue with user edit page causing error due to individual language files
+
+# v1.0.1
+## 12/18/2015
+
+1. [](#new)
+    * Moved languages into individual files under `languages/` folder
+    * Added a check for PHP version
+    * Dutch translation added
+1. [](#improved)
+    * Let forms work with file inputs
+    * Various file input improvements
+    * Language updates
+    * Better checks for existence of Popularity JSON data
+    * Add file processing to admin forms
+    * More Admin Pro integration fixes
+1. [](#bugfix)
+    * Set form to multipart if it contains a file field
+    * `cleanFilesData()` now returns just the filename
+
+# v1.0.0
+## 12/11/2015
+
+1. [](#new)
+    * New built-in admin registration process
+    * Added security check to `section` form field
+    * Added new RocketTheme font with various icons
+    * Add `onAdminThemeInitialized()` event to admin `Themes::init()`
+    * Force timestamp on CSS/JS assets based on `GRAV_VERSION`
+    * Additions for Gantry5 support
+1. [](#improved)
+    * Force lowercase `username` when logging in
+    * Hide markdown preview except for pages
+    * Added a notice if you don't have permission to see dashboard
+    * Updated admin login page logic
+    * Return "Invalid Security Token" instead of "Unauthorized"
+    * Throw exception if you used with built-in PHP web server
+    * Updated languages
+    * Removed `noreply@getgrav.org` default email address
+    * Use new methods to disable CSS/JS pipeline if available
+    * Various code cleanups
+1. [](#bugfix)
+    * Handle case when email `from` is not configured
+    * Fix tabs support in plugin/themes settings
+    * Fix param separator in page media Ajax call
+    * Fix favicon base URL
+
+# v1.0.0-rc.7
+## 12/01/2015
+
+1. [](#new)
+    * Display error page if page does not exist in admin
+    * Removed Beta message option and added toggle for GitHub message
+    * Added functionality to support Admin Pro plugin (in development)
+1. [](#improved)
+    * Added support for Markdown editor in lists #239
+    * Better Markdown Editor API with dynamic initialization
+    * Various language updates    
+    * Removed some unused variables
+    * Added admin check for pages existence
+    * Prevent the admin to cause an error when an Ajax action is in progress
+    * Force translations to be active even when disabled in site #299
+    * Do not reinitialize `Selectize` if already available
+1. [](#bugfix)
+    * Fixed full-screen markdown Editor
+    * Fix modular preview not working reliably #254
+    * **Nonce fixes** (hopefully the last of them!)
+    * Fix broken plugin enable/disable
+    * Fix issue where `_redirect: /plugins` was getting stored in the plugin configuration
+    * Replace default them service with admin one
+    * Fix saving array fields #304
+    * Fix missing translations when default language is not english
+    * Fix title variables not translated #310
+
+# v1.0.0-rc.6
+## 11/21/2015
+
+1. [](#improved)
+    * Implemented logic to detect when offline and suppress Ajax calls 
+    * Added nonce logic to be used by JS
+1. [](#bugfix)
+    * Nonce fix for updating themes
+    * Nonce fix for deleting pages
+    
 # v1.0.0-rc.5
 ## 11/20/2015
 

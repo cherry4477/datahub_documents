@@ -6,11 +6,13 @@ use Grav\Common\Config\Config;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
-use Grav\Common\Themes;
 use Grav\Common\Uri;
 use Grav\Common\Data;
 use Grav\Common\Page;
+use Grav\Common\Page\Pages;
 use Grav\Common\Page\Collection;
+use Grav\Common\Plugin;
+use Grav\Common\Theme;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Common\Backup\ZipBackup;
@@ -89,7 +91,8 @@ class AdminController
         if (method_exists('Grav\Common\Utils', 'getNonce')) {
             if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
                 if (!isset($this->post['admin-nonce']) || !Utils::verifyNonce($this->post['admin-nonce'], 'admin-form')) {
-                    $this->admin->setMessage('Unauthorized', 'error');
+                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
+                    $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')];
                     return false;
                 }
                 unset($this->post['admin-nonce']);
@@ -97,13 +100,15 @@ class AdminController
                 if ($this->task == 'logout') {
                     $nonce = $this->grav['uri']->param('logout-nonce');
                     if (!isset($nonce) || !Utils::verifyNonce($nonce, 'logout-form')) {
-                        $this->admin->setMessage('Unauthorized', 'error');
+                        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
+                        $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')];
                         return false;
                     }
                 } else {
                     $nonce = $this->grav['uri']->param('admin-nonce');
                     if (!isset($nonce) || !Utils::verifyNonce($nonce, 'admin-form')) {
-                        $this->admin->setMessage('Unauthorized', 'error');
+                        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
+                        $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')];
                         return false;
                     }
                 }
@@ -112,6 +117,7 @@ class AdminController
 
         $success = false;
         $method = 'task' . ucfirst($this->task);
+
         if (method_exists($this, $method)) {
             try {
                 $success = call_user_func(array($this, $method));
@@ -194,6 +200,7 @@ class AdminController
      */
     protected function taskLogin()
     {
+        $this->post['username'] = strtolower($this->post['username']);
         if ($this->admin->authenticate($this->post)) {
             // should never reach here, redirects first
         } else {
@@ -266,10 +273,17 @@ class AdminController
 
         $author = $this->grav['config']->get('site.author.name', '');
         $fullname = $user->fullname ?: $username;
-        $reset_link = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/reset/task' . $param_sep . 'reset/user'. $param_sep . $username . '/token' . $param_sep . $token;
+        $reset_link = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/reset/task' . $param_sep . 'reset/user'. $param_sep . $username . '/token' . $param_sep . $token . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
 
         $sitename = $this->grav['config']->get('site.title', 'Website');
-        $from = $this->grav['config']->get('plugins.email.from', 'noreply@getgrav.org');
+        $from = $this->grav['config']->get('plugins.email.from');
+
+        if (empty($from)) {
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
+            $this->setRedirect('/forgot');
+            return true;
+        }
+
         $to = $user->email;
 
         $subject = $this->admin->translate(['PLUGIN_ADMIN.FORGOT_EMAIL_SUBJECT', $sitename]);
@@ -488,8 +502,25 @@ class AdminController
 
             // Filter by page type
             if (count($flags)) {
-                $types = $flags;
-                $collection = $collection->ofOneOfTheseTypes($types);
+                $types = [];
+
+                $pageTypes = Pages::pageTypes();
+                foreach ($pageTypes as $pageType) {
+                    if (($pageType = array_search($pageType, $flags)) !== false) {
+                        $types[] = $pageType;
+                        unset($flags[$pageType]);
+                    }
+                }
+
+                if (count($types)) {
+                    $collection = $collection->ofOneOfTheseTypes($types);
+                }
+            }
+
+            // Filter by page type
+            if (count($flags)) {
+                $accessLevels = $flags;
+                $collection = $collection->ofOneOfTheseAccessLevels($accessLevels);
             }
         }
 
@@ -497,8 +528,6 @@ class AdminController
             foreach ($collection as $page) {
                 foreach ($queries as $query) {
                     $query = trim($query);
-
-                    // $page->content();
                     if (stripos($page->getRawContent(), $query) === false && stripos($page->title(), $query) === false) {
                         $collection->remove($page);
                     }
@@ -722,9 +751,11 @@ class AdminController
         }
 
         // Filter value and save it.
-        $this->post = array('enabled' => 1, '_redirect' => 'plugins');
+        $this->post = array('enabled' => true);
         $obj = $this->prepareData();
         $obj->save();
+
+        $this->post = array('_redirect' => 'plugins');
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_ENABLED_PLUGIN'), 'info');
 
         return true;
@@ -746,9 +777,11 @@ class AdminController
         }
 
         // Filter value and save it.
-        $this->post = array('enabled' => 0, '_redirect' => 'plugins');
+        $this->post = array('enabled' => false);
         $obj = $this->prepareData();
         $obj->save();
+
+        $this->post = array('_redirect' => 'plugins');
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_DISABLED_PLUGIN'), 'info');
 
         return true;
@@ -795,7 +828,7 @@ class AdminController
     /**
      * Handles installing plugins and themes
      *
-     * @return bool True is the action was performed
+     * @return bool True if the action was performed
      */
     public function taskInstall()
     {
@@ -824,14 +857,14 @@ class AdminController
     /**
      * Handles updating Grav
      *
-     * @return bool True is the action was performed
+     * @return bool True if the action was performed
      */
     public function taskUpdategrav()
     {
         require_once __DIR__ . '/gpm.php';
 
         if (!$this->authorizeTask('install grav', ['admin.super'])) {
-            return;
+            return false;
         }
 
         $result = \Grav\Plugin\Admin\Gpm::selfupgrade();
@@ -848,7 +881,7 @@ class AdminController
     /**
      * Handles updating plugins and themes
      *
-     * @return bool True is the action was performed
+     * @return bool True if the action was performed
      */
     public function taskUpdate()
     {
@@ -906,7 +939,7 @@ class AdminController
     /**
      * Handles uninstalling plugins and themes
      *
-     * @return bool True is the action was performed
+     * @return bool True if the action was performed
      */
     public function taskUninstall()
     {
@@ -930,6 +963,89 @@ class AdminController
         $this->post = array('_redirect' => $this->view);
 
         return true;
+    }
+
+    private function cleanFilesData($key, $file)
+    {
+        $config  = $this->grav['config'];
+        $blueprint = isset($this->items['fields'][$key]['files']) ? $this->items['fields'][$key]['files'] : [];
+
+        /** @var Page $page */
+        $page             = null;
+        $cleanFiles[$key] = [];
+        if (!isset($blueprint)) {
+            return false;
+        }
+
+        $type = trim("{$this->view}/{$this->admin->route}", '/');
+        $data = $this->admin->data($type, $this->post);
+
+        $fields = $data->blueprints()->fields();
+        $blueprint = isset($fields[$key]) ? $fields[$key] : [];
+
+
+        $cleanFiles = [$key => []];
+        foreach ((array)$file['error'] as $index => $error) {
+            if ($error == UPLOAD_ERR_OK) {
+                $tmp_name    = $file['tmp_name'][$index];
+                $name        = $file['name'][$index];
+                $type        = $file['type'][$index];
+                $destination = Folder::getRelativePath(rtrim($blueprint['destination'], '/'));
+
+                if (!$this->match_in_array($type, $blueprint['accept'])) {
+                    throw new \RuntimeException('File "' . $name . '" is not an accepted MIME type.');
+                }
+
+                if (Utils::startsWith($destination, '@page:')) {
+                    $parts = explode(':', $destination);
+                    $route = $parts[1];
+                    $page  = $this->grav['page']->find($route);
+
+                    if (!$page) {
+                        throw new \RuntimeException('Unable to upload file to destination. Page route not found.');
+                    }
+
+                    $destination = $page->relativePagePath();
+                } else if ($destination == '@self') {
+                    $page        = $this->admin->page(true);
+                    $destination = $page->relativePagePath();
+                } else {
+                    Folder::mkdir($destination);
+                }
+
+                if (move_uploaded_file($tmp_name, "$destination/$name")) {
+                    $path = $page ? $this->grav['uri']->convertUrl($page, $page->route() . '/' . $name) : $destination . '/' . $name;
+                    $cleanFiles[$key][] = $path;
+                } else {
+                    throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
+                }
+            }
+        }
+
+        return $cleanFiles[$key];
+    }
+
+    private function match_in_array($needle, $haystack)
+    {
+        foreach ((array)$haystack as $item) {
+            if (true == preg_match("#^" . strtr(preg_quote($item, '#'), array('\*' => '.*', '\?' => '.')) . "$#i", $needle)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function processFiles($obj)
+    {
+        foreach ((array)$_FILES as $key => $file) {
+            $cleanFiles = $this->cleanFilesData($key, $file);
+            if ($cleanFiles) {
+                $obj->set($key, $cleanFiles);
+            }
+        }
+
+        return $obj;
     }
 
     /**
@@ -989,6 +1105,7 @@ class AdminController
         } else {
             // Handle standard data types.
             $obj = $this->prepareData();
+            $obj = $this->processFiles($obj);
             $obj->validate();
             $obj->filter();
         }
@@ -1040,6 +1157,11 @@ class AdminController
     {
         if ($this->view == 'users') {
             $this->setRedirect("{$this->view}/{$this->post['username']}");
+            return true;
+        }
+
+        if ($this->view == 'groups') {
+            $this->setRedirect("{$this->view}/{$this->post['groupname']}");
             return true;
         }
 
@@ -1283,6 +1405,90 @@ class AdminController
     }
 
     /**
+     * Determine if the user can edit media
+     *
+     * @return bool True if the media action is allowed
+     */
+    protected function canEditMedia()
+    {
+        $type = 'media';
+        if (!$this->authorizeTask('edit media', ['admin.' . $type, 'admin.super'])) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Handles removing a media file
+     *
+     * @return bool True if the action was performed
+     */
+    public function taskRemoveMedia()
+    {
+        if (!$this->canEditMedia()) {
+            return false;
+        }
+
+        $filename = base64_decode($this->route);
+        $file = File::instance($filename);
+        $resultRemoveMedia = false;
+        $resultRemoveMediaMeta = true;
+
+        if ($file->exists()) {
+            $resultRemoveMedia = $file->delete();
+
+            $metaFilePath = $filename . '.meta.yaml';
+            $metaFilePath = str_replace('@3x', '', $metaFilePath);
+            $metaFilePath = str_replace('@2x', '', $metaFilePath);
+
+            if (is_file($metaFilePath)) {
+                $metaFile = File::instance($metaFilePath);
+                $resultRemoveMediaMeta = $metaFile->delete();
+            }
+        }
+
+        if ($resultRemoveMedia && $resultRemoveMediaMeta) {
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.REMOVE_SUCCESSFUL'), 'info');
+        } else {
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.REMOVE_FAILED'), 'error');
+        }
+
+        $this->post = array('_redirect' => 'media');
+        return true;
+    }
+
+    /**
+     * Handle deleting a file from a blueprint
+     *
+     * @return bool True if the action was performed.
+     */
+    protected function taskRemoveFileFromBlueprint()
+    {
+        $uri = $this->grav['uri'];
+        $this->taskRemoveMedia();
+
+        $field = $uri->param('field');
+        $blueprint = $uri->param('blueprint');
+        $this->grav['config']->set($blueprint . '.' . $field, '');
+        if (substr($blueprint, 0, 7) == 'plugins') {
+            Plugin::saveConfig(substr($blueprint, 8));
+        }
+        if (substr($blueprint, 0, 6) == 'themes') {
+            Theme::saveConfig(substr($blueprint, 7));
+        }
+
+        $redirect = base64_decode($uri->param('redirect'));
+        $route = $this->grav['config']->get('plugins.admin.route');
+
+        if (substr($redirect, 0, strlen($route)) == $route) {
+            $redirect = substr($redirect, strlen($route) + 1);
+        }
+
+        $this->post = array('_redirect' => $redirect);
+        return true;
+    }
+
+    /**
      * Prepare and return POST data.
      *
      * @param array $post
@@ -1410,6 +1616,12 @@ class AdminController
             $name .= '.md';
             $page->name($name);
             $page->template($type);
+
+            // unset some header things, template for now as we've just set that
+            if (isset($input['header']['template'])) {
+                unset($input['header']['template']);
+            }
+
         }
 
         // Special case for Expert mode: build the raw, unset content
