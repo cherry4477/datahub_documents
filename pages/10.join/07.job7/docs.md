@@ -16,10 +16,10 @@ taxonomy:
 2. 具备良好的编程基础，并有成果案例。
 
 ##### 技能要求
-1. 需要熟悉CloudFoundry、Docker、Mesos等技术。
-2. 熟悉Hadoop、hive，storm、zookeeper、Spark、Ozzie、Flume等一个或多个开源分布式系统。
-3. 熟练掌握Java、GO语言等服务端软件开发技术。
-4. 熟练使用Oralce、mysql数据库，linux操作系统
+1. 需要熟悉 CloudFoundry、Docker、Mesos 等技术。
+2. 熟悉 Hadoop、hive，storm、zookeeper、Spark、Ozzie、Flume 等一个或多个开源分布式系统。
+3. 熟练掌握 Java、GO 语言等服务端软件开发技术。
+4. 熟练使用 Oralce、mysql 数据库，linux 操作系统
 5. 工作踏实、诚信。
 
 **投个简历：datahub@asiainfo.com**
