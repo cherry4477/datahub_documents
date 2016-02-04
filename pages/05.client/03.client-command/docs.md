@@ -5,20 +5,18 @@ taxonomy:
         - docs
 ---
 
-DataHub client 是 datahub 的命令行客户端，用来执行 datahub 相关命令。
+DataHub client 是 DataHub 的命令行客户端，用来执行 DataHub 相关命令。
 
 | 命令	    | 用途              |
 | :---------- | :----------       |
-| dp          | Datapool管理      |
-| repo        | Repository管理    |
-| subs        | Subscrption管理   |
+| dp          | Datapool 管理      |
+| repo        | Repository 管理    |
+| subs        | Subscrption 管理   |
 | login       | 登录到 dataos.io  | 
 | pull        | 下载数据           |
 | pub         | 发布数据           |
 | job         | 显示任务列表       |
 | help        | 帮助命令           |  
-| repo        | Repository管理     | 
-| repo        | Repository管理     |
 
 >>>>>备注：
 
@@ -79,7 +77,7 @@ DataHub client 是 datahub 的命令行客户端，用来执行 datahub 相关�
 
 例子
 
-    $ datahub dp create testdp file://var/lib/datahub/testdp
+    $ datahub dp create testdp file:///var/lib/datahub/testdp
     dp create success. name:testdp type:file path:/var/lib/datahub/testdp
     $
     
@@ -100,7 +98,7 @@ DataHub client 是 datahub 的命令行客户端，用来执行 datahub 相关�
     
 ### 2 login 命令
 
-login命令支持被动调用，用于 datahub client 与 datahub server 交互时作认证。并将认证信息保存到环境变量，免去后续指令重复输入认证信息。
+login 命令支持被动调用，用于 DataHub client 与 DataHub server 交互时作认证。并将认证信息保存到环境变量，免去后续指令重复输入认证信息。
 
 登陆到 dataos.io
 
@@ -118,7 +116,7 @@ login命令支持被动调用，用于 datahub client 与 datahub server 交互�
     [INFO]Authorization failed.
     $
 
-### 3 subs相关命令
+### 3 subs 相关命令
 #### 3.1 列出所有已订阅项
 
 	datahub subs 
@@ -134,7 +132,7 @@ login命令支持被动调用，用于 datahub client 与 datahub server 交互�
     repo1/testing       api
     $
     
-#### 3.2 列出已订阅item详情
+#### 3.2 列出已订阅 item 详情
 
 	datahub subs $REPO/$ITEM
 
@@ -162,9 +160,9 @@ login命令支持被动调用，用于 datahub client 与 datahub server 交互�
     $
 
 ### 4 pull 命令
-拉取某个 item 的 tag
+拉取某个 item 的 tag。
 
-pull 一个 tag ，需指定`$DATAPOOL`, 可再指定`$DATAPOOL`下的子目录`$LOCATION`，默认下载到`$DATAPOOL://$REPO_$ITEM`。 可选参数`[--destname, -d]`命名下载的 tag
+pull 一个 tag ，需指定`$DATAPOOL`, 可再指定`$DATAPOOL`下的子目录`$LOCATION`，默认下载到`$DATAPOOL://$REPO_$ITEM`。 可选参数`[--destname, -d]`命名下载的 tag 。
 
 	datahub pull $REPO/$ITEM:$TAG $DATAPOOL[://$LOCATION] [--destname，-d]
 
@@ -182,11 +180,11 @@ pull 一个 tag ，需指定`$DATAPOOL`, 可再指定`$DATAPOOL`下的子目录`
 
 pub 分为发布一个 DataItem 和发布一个 Tag 。
 
-发布 DataItem 必须指定 DATAPOOL 和 DATAPOOL 下的子路径 LOCATION , 可选参数`--accesstype`, `-t=` 指定DataItem属性：public, private, 默认private
+发布 DataItem 必须指定 DATAPOOL 和 DATAPOOL 下的子路径 LOCATION , 可选参数`--accesstype`, `-t=` 指定DataItem属性：public, private, 默认private 。
 
-发布 Tag 必须指定 TAGDETAIL , 用来指定 Tag 对应文件名，该文件必须存在于`$DATAPOOL://$LOCATION`内
+发布 Tag 必须指定 TAGDETAIL , 用来指定 Tag 对应文件名，该文件必须存在于`$DATAPOOL://$LOCATION`内。
 
-可选参数`--comment`, `-m=` ,描述 DataItem 或者 Tag
+可选参数`--comment`, `-m=` ,描述 DataItem 或者 Tag 。
 
 #### 5.1 发布一个 item
 
@@ -217,7 +215,7 @@ pub 分为发布一个 DataItem 和发布一个 Tag 。
 
 ### 6 repo 命令
 
-查询自己创建的和具有写权限的所有 repository
+查询自己创建的和具有写权限的所有 repository 。
 
 	datahub repo 
 
@@ -244,7 +242,7 @@ pub 分为发布一个 DataItem 和发布一个 Tag 。
 
 ### 8 help命令
 
-help 提供 datahub 所有命令的帮助信息。
+help 提供 DataHub 所有命令的帮助信息。
 
 列出帮助
 

@@ -9,7 +9,7 @@ taxonomy:
 
 发布数据是数据提供方行为。
 
-在 datahub 产品中，数据组织划分为 repository 、dataitem 、tag ，其中 repository 是数据仓库， dataitem 是一个数据项，包含一个主题的数据， tag 是一个具体的数据记录。
+在 DataHub 产品中，数据组织划分为 repository 、dataitem 、tag ，其中 repository 是数据仓库， dataitem 是一个数据项，包含一个主题的数据， tag 是一个具体的数据记录。
 
 提供方发布数据前要在本地基于已有数据建立一个 datapool，发布这个 datapool 里面的数据。
 
@@ -27,7 +27,7 @@ taxonomy:
 >>>>注意：在发布 dataitem 之前，可以在其对应的目录里创建、编译三个文件：sample.md, meta.md, price.cfg。
 
 这三个文件的作用分别是：
-* sample.md 用于保存 markdown 格式的样例数据，如果没有此文件，程序会读取此目录下的一个tag文件的前十行，作为样例数据，发布到 dataitem 的详情里。
+* sample.md 用于保存 markdown 格式的样例数据，如果没有此文件，程序会读取此目录下的一个 tag 文件的前十行，作为样例数据，发布到 dataitem 的详情里。
 * meta.md 用于保存 markdown 格式的元数据。
 * price.cfg 用于保存 json 格式的资费计划，用来明确此 dataitem 的资费。格式如下：
 
@@ -63,7 +63,7 @@ pull 数据是数据需求方的行为。
 
 需求方用户登录 http://hub.dataos.io ，查看、搜索 repository 、dataitem ，然后订购自己所需的 dataitem 。订购成功后，在 tag 详情页面，点击复制，复制 tag 全名，即可在客户端 pull 此 dataitem 下的 tag 所对应的数据。
 
-datahub client 操作如下：
+DataHub client 操作如下：
 
 	1）datahub dp create mydp file:///home/usr/data/itempull 
 

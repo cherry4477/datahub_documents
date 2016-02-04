@@ -112,7 +112,7 @@ textarea, input[type="email"], input[type="number"], input[type="password"], inp
       display: inline-block; } }
 
 #sidebar {
-  background-color: #38424D;
+  background-color: #f6f6f6;
   position: fixed;
   top: 0;
   width: 300px;
@@ -121,13 +121,13 @@ textarea, input[type="email"], input[type="number"], input[type="password"], inp
   font-weight: 500;
   font-size: 15px; }
   #sidebar a {
-    color: #bbbbbb; }
+    color: #333333; }
     #sidebar a:hover {
-      color: #d5d5d5; }
+      color: #bbbbbb; }
     #sidebar a.subtitle {
       color: rgba(187, 187, 187, 0.6); }
   #sidebar hr {
-    border-bottom: 1px solid #323a44; }
+    border-bottom: 1px solid #bbbbbb; }
   #sidebar a.padding {
     padding: 0 1rem; }
   #sidebar h5 {
@@ -189,7 +189,7 @@ textarea, input[type="email"], input[type="number"], input[type="password"], inp
         #sidebar ul.topics > li > a .fa {
           margin-top: 9px; }
       #sidebar ul.topics > li.parent, #sidebar ul.topics > li.active {
-        background: #2d353e;
+        background: #f6f6f6;
         margin-left: -1rem;
         margin-right: -1rem;
         padding-left: 1rem;
@@ -382,7 +382,7 @@ blockquote > blockquote > blockquote {
       top: 2px;
       color: #fff;
       font-family: FontAwesome;
-      content: 'ïª';
+      content: 'ï?;
       left: 10px; }
     blockquote > blockquote > blockquote p:first-child:after {
       position: absolute;
