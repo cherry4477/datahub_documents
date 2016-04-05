@@ -148,7 +148,6 @@ login 命令支持被动调用，用于 DataHub client 与 DataHub server 交互
 	输出
 
 	%REPO/%ITEM     %TYPE
-
 	{%ITEM:%TAGNAME %UPDATE_TIME    %INFO}
 
 	例子
@@ -169,20 +168,11 @@ login 命令支持被动调用，用于 DataHub client 与 DataHub server 交互
 输出
 
     %REPO/%ITEM     %TYPE
-    DESCRIPTION:
-    %DESCRIPTION
-    METADATA:
-    %METADATA
     {%ITEM:%TAGNAME %UPDATE_TIME    %INFO}
     
 例子
 
     $ datahub subs cmcc/beijing
-    cmcc/beijing    regular file
-    DESCRIPTION:
-    移动数据北京地区
-    METADATA:
-    BLABLABLA
     beijing:chaoyang    15:34 Oct 12 2015       600M
     beijing:daxing  16:40 Oct 13 2015       435M
     beijing:shunyi  16:40 Oct 14 2015       324M
