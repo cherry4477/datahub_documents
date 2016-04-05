@@ -203,8 +203,8 @@ pull 一个 tag ，需指定`$DATAPOOL`, 可再指定`$DATAPOOL`下的子目录`
 例子
 
 	$ datahub pull cmcc/beijing:chaoyang dp1://cmccbj
-    DataHub : OK.
-    $
+    	DataHub : OK.
+        $
     
 ### 5 pub 相关命令
 
@@ -368,7 +368,7 @@ logout 命令支持被动调用，用于 DataHub client 与 DataHub server 交�
     DataHub : Logout success.
     $
     
- ### 10 ep 命令
+### 10 ep 命令
 
   若需要向DataHub发布数据，需提供ENTRYPOINT。
 
