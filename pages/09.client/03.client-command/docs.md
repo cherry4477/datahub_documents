@@ -203,8 +203,8 @@ pull 一个 tag ，需指定`$DATAPOOL`, 可再指定`$DATAPOOL`下的子目录`
 例子
 
 	$ datahub pull cmcc/beijing:chaoyang dp1://cmccbj
-    DataHub : OK.
-    $
+    	DataHub : OK.
+        $
     
 ### 5 pub 相关命令
 
@@ -303,7 +303,7 @@ pub 分为发布一个 DataItem 和发布一个 Tag 。
 输出
 
 	DataHub : After you delete the Tag, data could not be recovery.
-Are you sure to delete the current Tag?[Y or N]:y
+	Are you sure to delete the current Tag?[Y or N]:y
 	DataHub : OK
     
 ### 7 job 命令
