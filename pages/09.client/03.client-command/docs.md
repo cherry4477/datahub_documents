@@ -263,7 +263,7 @@ pub 分为发布一个 DataItem 和发布一个 Tag 。
 
 #### 6.3 查询dataitem的详情
 
-	datahub repo rm Internet_stats/Music
+	datahub repo  Internet_stats/Music
 
 输出
 
