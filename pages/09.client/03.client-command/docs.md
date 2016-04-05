@@ -303,7 +303,7 @@ pub 分为发布一个 DataItem 和发布一个 Tag 。
 输出
 
 	DataHub : After you delete the Tag, data could not be recovery.
-Are you sure to delete the current Tag?[Y or N]:y
+	Are you sure to delete the current Tag?[Y or N]:y
 	DataHub : OK
     
 ### 7 job 命令
@@ -350,7 +350,7 @@ help 提供 DataHub 所有命令的帮助信息。
     Remove a datapool
     $
 
-### 9 loginout 命令
+### 9 logout 命令
 
 logout 命令支持被动调用，用于 DataHub client 与 DataHub server 交互时作认证。并将认证信息保存到环境变量，免去后续指令重复输入认证信息。
 
