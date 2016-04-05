@@ -368,7 +368,7 @@ logout 命令支持被动调用，用于 DataHub client 与 DataHub server 交�
     DataHub : Logout success.
     $
     
- ### 10 ep 命令
+### 10 ep 命令
 
   若需要向DataHub发布数据，需提供ENTRYPOINT。
 
