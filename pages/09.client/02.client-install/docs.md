@@ -2,7 +2,7 @@
 title: 'DataHub 客户端安装方法'
 ---
 
-有三种安装方法：
+## 在Linux环境下DataHub Client端安装方式，目前支持三种Client端安装方式：
 
 ### 1. 使用脚本安装
 
@@ -58,3 +58,19 @@ https://hub.dataos.io/clientDownload.html ，查看当前用户的 token 。
 
 	docker run -d -e "DAEMON_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" -e
     "DAEMON_ENTRYPOINT=http://example.com:35800" -p 35800:35800 datahub
+    
+## 在Windows环境下DataHub Client端安装方式    
+    
+### 程序安装
+
+支持windows64位操作系统，下载Windows版Client端，设置环境变量。
+
+例如Client端下载到D:\datahub目录下，给path环境变量增加一个值为“D:\datahub”的设置。
+
+安装完成后：
+
+启动DataHub服务：
+
+cmd运行输入：
+
+	start datahub --daemon --token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
