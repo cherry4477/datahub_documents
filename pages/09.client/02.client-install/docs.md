@@ -63,14 +63,12 @@ https://hub.dataos.io/clientDownload.html ，查看当前用户的 token 。
     
 ### 程序安装
 
-支持windows64位操作系统，下载Windows版Client端，设置环境变量。
+支持windows64位操作系统，下载Windows版Client端，安装完成后，设置环境变量。
 
 例如Client端下载到D:\datahub目录下，给path环境变量增加一个值为“D:\datahub”的设置。
 
-安装完成后：
+启动DataHub服务
 
-启动DataHub服务：
-
-cmd运行输入：
+CMD命令窗口输入:
 
 	start datahub --daemon --token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
