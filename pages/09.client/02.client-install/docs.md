@@ -2,7 +2,7 @@
 title: 'DataHub 客户端安装方法'
 ---
 
-## 在Linux环境下DataHub Client端安装方式：目前支持三种Client端安装方式
+## 在Linux环境下DataHub Client端安装方式
 
 ### 1. 使用脚本安装
 
