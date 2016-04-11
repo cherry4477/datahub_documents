@@ -11,10 +11,13 @@ taxonomy:
 
 1）如果您是认证用户，登录之后，您可以开始发布数据了。进入 DataHub 平台“我的发布”，或者直接输入网址：[https://hub.dataos.io/myPublish.html](https://hub.dataos.io/myPublish.html)
 ![](mypub.png)
+
 2）在“我的发布”页面，选择开放或私有 Repository （新建私有 Repo 需要会员级别是钻石会员或金卡会员）
 ![](mypub2.png)
+
 3）在弹出的“新增 Repo ”的设置页面，填写 Repo 的名称、描述和属性。
 ![](new_repo_create.png)
+
 4）填写信息提交后，我的发布页面将出现新的 Repo 信息。
 ![](new_repo.png.jpg)
 
@@ -54,10 +57,10 @@ taxonomy:
 （1）在网页端补充 Item 信息
 
 选择 Item 修改，或样例、元数据修改。
-![](item.png) 
+![](item.png)
 
 修改 Item 页面：
-![](update_item.png) 
+![](update_item.png)
 
 修改样例或元数据页面：
 ![](update_sample_meta.png)
