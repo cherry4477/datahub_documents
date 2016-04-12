@@ -1,5 +1,6 @@
 ---
 title: 'DataHub 应用场景举例'
+published: false
 taxonomy:
     category:
         - docs

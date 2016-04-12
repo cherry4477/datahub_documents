@@ -1,5 +1,6 @@
 ---
 title: 'DataHub 客户端安装方法'
+published: false
 ---
 
 ## 在Linux环境下DataHub Client端安装方式
