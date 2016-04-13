@@ -16,7 +16,7 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 | help        | 帮助命令          |  
 
 
-## Datahub Client命令行使用说明
+## DataHub Client命令行使用说明
 
 #### NOTE：
 - 如果没有额外说明，所有的命令在没有错误发生时，不在终端输出任何信息，只记录到日志中。错误信息会打印到终端。
