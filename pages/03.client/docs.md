@@ -70,7 +70,6 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 说明：cmcc_beijing为dataitem beijing在datapool dp1中的位置， jiangsu-lac-ci.txt为tag存储到dp1中的文件名，“位置区编码”为详细信息。
     
 #### 1.3 创建数据池
-- 目前只支持本地目录形式的数据池创建。
 
 		datahub dp create $DPNAME [[file://][ABSOLUTE PATH]] | [[s3://][BUCKET]] | [[hdfs://][USERNAME:PASSWORD@HOST:PORT]]
 
