@@ -13,6 +13,8 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 | pub         | 发布数据           |
 | repo        | Repository 管理   |
 | job         | 显示任务列表       |
+| ep		  | 设置Entrypoint    |
+| logout	  | 登出              |
 | help        | 帮助命令          |  
 
 
@@ -38,12 +40,12 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 例子
 
     $ datahub dp
-    DATAPOOL            TYPE    
-	------------------------
-	dp1                 file 
-	dp2                 db2
-	dphere              hdfs
-	dpthere             api
+    DATAPOOL            TYPE
+    ------------------------
+    dp1                 file 
+    dp2                 db2
+    dphdfs              hdfs
+    dps3                s3
 	$
     
 #### 1.2 列出 datapool 详情
@@ -57,13 +59,15 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 
 例子
 
-    $  datahub dp dp1
+    $ datahub dp dp1
     DATAPOOL:dp1            file                      /var/lib/datahub/dp1
-    repo1/item1:tag1        2015-10-23 03:57:42       pub
-    repo1/item1:tag2        2015-10-23 03:59:49       pub
-    repo1/item2:latest      2015-10-23 04:01:22       pull
-	cmcc/beijing:latest     2015-11-19 10:57:21       pull
-    $ 
+    repo1/item1:tag1        2015-10-23 03:57:42       pub		repo1_item1       tag1.txt    		Size:232.00KB
+    repo1/item1:tag2        2015-10-23 03:59:49       pub		repo1_item1	  tag2
+    repo1/item2:jinrong-40  2015-10-23 04:01:22       pull		item2location	  jinrong_40.txt	金融信息
+    cmcc/beijing:jiangsu-lac-ci     2015-11-19 10:57:21       pull		cmcc_beijing	jiangsu-lac-ci.txt   位置区编码
+	$ 
+    
+说明：cmcc_beijing为dataitem beijing在datapool dp1中的位置， jiangsu-lac-ci.txt为tag存储到dp1中的文件名，“位置区编码”为详细信息。
     
 #### 1.3 创建数据池
 - 目前只支持本地目录形式的数据池创建。
@@ -77,15 +81,23 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 例子1
 
     $ datahub dp create testdp file:///var/lib/datahub/testdp
-   	DataHub : Datapool has been created successfully. Name:testdp Type:file Path:/var/lib/datahub/testdp.
-    $
+	DataHub : Datapool has been created successfully. Name:testdp Type:file Path:/var/lib/datahub/testdp.
+	$
+  
     
 例子 2
 
-	$ datahub dp create s3dp s3://mybucket
+    $ datahub dp create s3dp s3://mybucket
 	DataHub : s3dp already exists, please change another name.
 	$
 
+说明：mybucket是s3上已存在的bucket。另外，需要在启动daemon的系统中设置环境变量：AWS_SECRET_ACCESS_KEY， AWS_ACCESS_KEY_ID， AWS_REGION。
+    
+  例子 3
+
+    $ datahub dp create hdfsdp hdfs://user123:admin123@x.x.x.x:9000
+
+ 说明：“hdfs://”后需要接hdfs的连接串。
     
 #### 1.4 删除数据池
 - 删除数据池不会删除目标数据池已保存的数据。该dp有发布的数据项时，不能被删除。删除是在sqlite中标记状态，不真实删除。
@@ -126,8 +138,8 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 
 	输出
 
-	%REPO/%ITEM     %TYPE
-	{%ITEM:%TAGNAME %UPDATE_TIME    %INFO}
+	REPOSITORY/%ITEM    %TYPE        STATUS
+	{%REPO/%ITEM        %TYPE        %STATUS}
 
 	例子
 
@@ -146,17 +158,18 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 
 输出
 
-    %REPO/%ITEM     %TYPE
-    {%ITEM:%TAGNAME %UPDATE_TIME    %INFO}
+     REPOSITORY/ITEM:TAG      UPDATETIME      COMMENT      STATUS
+    {%REPO/%ITEM:%TAGNAME     %UPDATE_TIME    %COMMENT     %STATUS}
     
 例子
 
-    $ datahub subs cmcc/beijing
-    beijing:chaoyang    15:34 Oct 12 2015       600M
-    beijing:daxing  16:40 Oct 13 2015       435M
-    beijing:shunyi  16:40 Oct 14 2015       324M
-    beijing:haidian 16:40 Oct 15 2015       988M
-    $
+   	$ datahub subs cmcc/beijing
+    REPOSITORY/ITEM:TAG      UPDATETIME              COMMENT      STATUS
+    cmcc/beijing:chaoyang    15:34 Oct 12 2015       600M         NORMAL
+    cmcc/beijing:daxing      16:40 Oct 13 2015       435M         NORMAL
+    cmcc/beijing:shunyi      16:40 Oct 14 2015       324M         NORMAL
+	cmcc/beijing:haidian     16:40 Oct 15 2015       988M         NORMAL
+	$
     
 ### 3. pull 命令
 #### 3.1 拉取某个 item 的 tag。
@@ -172,8 +185,8 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 例子
 
 	$ datahub pull cmcc/beijing:chaoyang dp1://cmccbj
-    	DataHub : OK.
-        $
+    DataHub : OK.
+    $
 
 ### 4. login 命令
 
@@ -308,12 +321,21 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 #### 7.3 job rm 删除某个 job
 	
     datahub job rm &JOBID
+    
+#### 8. ep 命令
 
-### 8. help 命令
+- 设置datahub daemon的entrypoint，作为数据提供方，需要提供可访问的url，供需求方访问，并下载数据。
+- 此命令也可以用来查看是否设置了entrypoint。
+
+#### 9. logout 命令
+
+- 登出hub.dataos.io
+
+### 10. help 命令
 
 - help 提供 DataHub 所有命令的帮助信息。
 
-#### 8.1 列出帮助
+#### 10.1 列出帮助
 
 	datahub help [$CMD] [$SUBCMD]
 
@@ -396,17 +418,17 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 
 发布一名称为 mytag 的 tag ，所属 dataitem 是 myitem ，对应数据文件是 `/home/myusr/data/topub/test.txt`。
 
-### 2. pull 数据
+### 2. 下载数据
 
-- pull 数据是数据需求方的行为。
+- 下载数据是数据需求方的行为。
 
-需求方用户登录 http://hub.dataos.io ，查看、搜索 repository 、dataitem ，然后订购自己所需的 dataitem 。订购成功后，在 tag 详情页面，点击复制，复制 tag 全名，即可在客户端 pull 此 dataitem 下的 tag 所对应的数据。
+需求方用户登录 http://hub.dataos.io ，查看、搜索 repository 、dataitem ，然后订购自己所需的 dataitem 。订购成功后，在 tag 详情页面，点击复制，复制 tag 全名，即可在客户端下载此 dataitem 下的 tag 所对应的数据。
 
 DataHub Client 操作如下：
 
 	1）datahub dp create mydp file:///home/usr/data/itempull 
 
-以上命令创建了一个名为 mydp 的 datapool ，类型是 file ，路径是`/home/myusr/data/itempull`, 用于存储即将 pull 的数据。
+以上命令创建了一个名为 mydp 的 datapool ，类型是 file ，路径是`/home/myusr/data/itempull`, 用于存储即将下载 的数据。
 	
     2）datahub pull repotest/itemtest:tagtest mydp://mydir1 –d tagdestname.txt
 
