@@ -96,7 +96,7 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 
     $ datahub dp create hdfsdp hdfs://user123:admin123@x.x.x.x:9000
 
- 说明：“hdfs://”后需要接hdfs的连接串。
+说明：“hdfs://”后需要接hdfs的连接串。
     
 #### 1.4 删除数据池
 - 删除数据池不会删除目标数据池已保存的数据。该dp有发布的数据项时，不能被删除。删除是在sqlite中标记状态，不真实删除。
