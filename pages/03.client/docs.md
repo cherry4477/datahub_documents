@@ -431,4 +431,4 @@ DataHub Client 操作如下：
 	
     2）datahub pull repotest/itemtest:tagtest mydp://mydir1 –d tagdestname.txt
 
-pull 一个 tag 对应的数据到 mydp 中，子路径是 mydir1。
+下载一个 tag 对应的数据到 mydp 中，子路径是 mydir1。
