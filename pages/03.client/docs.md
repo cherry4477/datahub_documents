@@ -1,5 +1,5 @@
 ---
-title: 'DataHub 客户端命令介绍'
+title: 客户端命令介绍
 ---
 
 DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关命令。
