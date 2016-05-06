@@ -1,5 +1,5 @@
 ---
-title: 中关村大数据产业联盟数据交换标准委员会介绍
+title: 关于我们
 taxonomy:
     category:
         - docs

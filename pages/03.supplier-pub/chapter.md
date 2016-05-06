@@ -1,5 +1,5 @@
 ---
-title: '数据发布 - 数据提供方'
+title: 数据发布
 taxonomy:
     category:
         - docs

@@ -1,5 +1,5 @@
 ---
-title: '数据下载 - 数据需求方'
+title: 数据获取
 taxonomy:
     category:
         - docs
