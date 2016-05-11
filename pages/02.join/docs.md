@@ -1,9 +1,6 @@
 ---
 title: 用户入驻
 published: true
-taxonomy:
-    category:
-        - docs
 ---
 
 **第一步：用户注册**

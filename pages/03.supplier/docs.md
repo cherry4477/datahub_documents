@@ -1,8 +1,5 @@
 ---
 title: 数据发布
-taxonomy:
-    category:
-        - docs
 ---
 
 数据发布是数据提供方的行为，需要在网页端和 Client 客户端分步操作。在网页端您可以完成：新增私有\开放 Repo 、修改私有\开放 Repo 、修改私有\开放 Item ，而新增私有\开放 Item 、新增 Tag 等则需要通过 Client 客户端来完成。
@@ -54,7 +51,7 @@ taxonomy:
 
 您可以选择在网页端或 Client 客户端对 Item 的信息进行补充。
 
-（1）在网页端补充 Item 信息
+  （1）在网页端补充 Item 信息
 
 选择 Item 修改，或样例、元数据修改。
 ![](item.png)
@@ -65,7 +62,7 @@ taxonomy:
 修改样例或元数据页面：
 ![](update_sample_meta.png)
  
-（2）在 Client 客户端补充 Item 信息
+ （2）在 Client 客户端补充 Item 信息
 
 在发布 Item 之前，可以在其对应的目录里创建、编译三个文件： sample.md 、 meta.md 、 price.cfg ，这三个文件的作用分别是：
 * sample.md 用于保存 Markdown 格式的样例数据，如果没有此文件，程序会读取此目录下的一个 Tag 文件的前十行，作为样例数据，发布到 Item 的详情里。

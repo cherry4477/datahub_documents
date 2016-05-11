@@ -1,8 +1,5 @@
 ---
 title: 数据获取
-taxonomy:
-    category:
-        - docs
 ---
 
 DataHub 提供的数据类型包括：批量数据、 API 数据和流式数据。
