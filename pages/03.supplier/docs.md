@@ -6,7 +6,7 @@ title: 数据发布
 
 **第一步：新增 Repository （网页端操作）**
 
-1）如果您是认证用户，登录之后，您可以开始发布数据了。进入 DataHub 平台“我的发布”，或者直接输入网址：[https://hub.dataos.io/myPublish.html](https://hub.dataos.io/myPublish.html)
+1）如果您是认证用户，登录之后，您可以开始发布数据了。进入 DataHub 平台“我的发布”，或者直接输入网址：[https://hub.dataos.io/my/publish](https://hub.dataos.io/my/publish)
 ![](mypub.png)
 
 2）在“我的发布”页面，选择开放或私有 Repository （新建私有 Repository 需要会员级别是钻石会员或金卡会员）
