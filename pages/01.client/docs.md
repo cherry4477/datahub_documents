@@ -27,7 +27,7 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 - 参数赋值支持空格和等号两种形式，例如--type=file等同于--type file。
 
 
-### 1. datapool 相关命令
+### 1. Datapool 相关命令
 
 #### 1.1 列出所有命令池
 
@@ -48,14 +48,14 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
     dps3                s3
 	$
     
-#### 1.2 列出 datapool 详情
+#### 1.2 列出 Datapool 详情
 
 	datahub dp $DPNAME
 
 输出
 
-    %DPNAME 			%DPTYPE 		%DPCONN
-    {%REPO/%ITEM:%TAG	%LOCAL_TIME		%T}
+    %DPNAME 			         %DPTYPE 		%DPCONN
+    {%REPOSITORY/%DATAITEM:%TAG	 %LOCAL_TIME		%T}
 
 例子
 
@@ -67,7 +67,7 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
     cmcc/beijing:jiangsu-lac-ci     2015-11-19 10:57:21       pull		cmcc_beijing	jiangsu-lac-ci.txt   位置区编码
 	$ 
     
-说明：cmcc_beijing为dataitem beijing在datapool dp1中的位置， jiangsu-lac-ci.txt为tag存储到dp1中的文件名，“位置区编码”为详细信息。
+说明：cmcc_beijing为DataItem beijing在Datapool dp1中的位置， jiangsu-lac-ci.txt为Tag存储到dp1中的文件名，“位置区编码”为详细信息。
     
 #### 1.3 创建数据池
 
@@ -120,25 +120,25 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 
 输出
 
-	REPOSITORY/ITEM     TYPE    STATUS
-	{%REPO/%ITEM        %TYPE   online/offline}
+	REPOSITORY/DATAITEM     TYPE    STATUS
+	{%REPOSITORY/%DATAITEM  %TYPE   online/offline}
 
 例子
 
 	$ datahub subs
-	REPOSITORY/ITEM     TYPE    STATUS
-	cmcc/beijing        file    online
-	repo1/testing       hdfs    online
+	REPOSITORY/DATAITEM     TYPE    STATUS
+	cmcc/beijing            file    online
+	repo1/testing           hdfs    online
     $
   
-#### 2.2 列出用户在某个repository下已订阅的item
+#### 2.2 列出用户在某个Repository下已订阅的DataItem
 
 	datahub subs $REPO
 
 	输出
 
-	REPOSITORY/%ITEM    %TYPE        STATUS
-	{%REPO/%ITEM        %TYPE        %STATUS}
+	REPOSITORY/%DATAITEM    %TYPE        STATUS
+	{%REPOSITORY/%DATAITEM  %TYPE        %STATUS}
 
 	例子
 
@@ -151,31 +151,31 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 		$
 
     
-#### 2.3 列出已订阅 item 详情
+#### 2.3 列出已订阅 DataItem 详情
 
-	datahub subs $REPO/$ITEM
+	datahub subs $REPOSITORY/$DATAITEM
 
 输出
 
-     REPOSITORY/ITEM:TAG      UPDATETIME      COMMENT      STATUS
-    {%REPO/%ITEM:%TAGNAME     %UPDATE_TIME    %COMMENT     %STATUS}
+     REPOSITORY/DATAITEM:TAG                UPDATETIME      COMMENT      STATUS
+    {%REPOSITORY/%DATAITEM:%TAGNAME         %UPDATE_TIME    %COMMENT     %STATUS}
     
 例子
 
    	$ datahub subs cmcc/beijing
-    REPOSITORY/ITEM:TAG      UPDATETIME              COMMENT      STATUS
-    cmcc/beijing:chaoyang    15:34 Oct 12 2015       600M         NORMAL
-    cmcc/beijing:daxing      16:40 Oct 13 2015       435M         NORMAL
-    cmcc/beijing:shunyi      16:40 Oct 14 2015       324M         NORMAL
-	cmcc/beijing:haidian     16:40 Oct 15 2015       988M         NORMAL
+    REPOSITORY/DATAITEM:TAG      UPDATETIME              COMMENT      STATUS
+    cmcc/beijing:chaoyang    	 15:34 Oct 12 2015       600M         NORMAL
+    cmcc/beijing:daxing      	 16:40 Oct 13 2015       435M         NORMAL
+    cmcc/beijing:shunyi      	 16:40 Oct 14 2015       324M         NORMAL
+	cmcc/beijing:haidian     	 16:40 Oct 15 2015       988M         NORMAL
 	$
     
 ### 3. pull 命令
-#### 3.1 拉取某个 item 的 tag。
+#### 3.1 拉取某个 DataItem 的 Tag。
 
-- pull 一个 tag ，需指定`$DATAPOOL`, 可再指定`$DATAPOOL`下的子目录`$LOCATION`，默认下载到`$DATAPOOL://$REPO_$ITEM`。 可选参数`[--destname, -d]`命名下载的 tag [--automatic, -a]自动下载已订阅的Item新增的tag [--cancel, -c]取消自动下载tag 。
+- pull 一个 Tag ，需指定`$DATAPOOL`, 可再指定`$DATAPOOL`下的子目录`$LOCATION`，默认下载到`$DATAPOOL://$REPOSITORY_$DATAITEM`。 可选参数`[--destname, -d]`命名下载的 Tag [--automatic, -a]自动下载已订阅的Item新增的tag [--cancel, -c]取消自动下载Tag 。
 
-		datahub pull $REPO/$ITEM:$TAG $DATAPOOL[://$LOCATION] [--destname，-d]
+		datahub pull $REPOSITORY/$DATAITEM:$TAG $DATAPOOL[://$LOCATION] [--destname，-d]
 
 输出
 
@@ -212,13 +212,13 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 
 - pub 分为发布一个 DataItem 和发布一个 Tag 。
 
-- 发布 DataItem 必须指定 DATAPOOL 和 DATAPOOL 下的子路径 LOCATION , 可选参数`--accesstype`, `-t=` 指定DataItem属性：public, private, 默认private 。
+- 发布 DataItem 必须指定 `$DATAPOOL` 和 `$DATAPOOL` 下的子路径 `$LOCATION` , 可选参数`--accesstype`, `-t=` 指定DataItem属性：public, private, 默认private 。
 
 - 发布 Tag 必须指定 TAGDETAIL , 用来指定 Tag 对应文件名，该文件必须存在于`$DATAPOOL://$LOCATION`内。
 
 - 可选参数`--comment`, `-m=` ,描述 DataItem 或者 Tag 。
 
-#### 5.1 发布一个 item
+#### 5.1 发布一个 DataItem
 
 	datahub pub $REPOSITORY/$DATAITEM $DATAPOOL://$LOCATION --accesstype=public [private]  [--comment, -m]
 
@@ -231,9 +231,9 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
     $./datahub pub music_1/migu mydp://dirmigu --accesstype=public --comment="migu music desc"
     DataHub : Pub success,  OK
 
-#### 5.2 发布一个 tag
+#### 5.2 发布一个 Tag
 
-	datahub pub $REPO/$ITEM:$Tag $TAGDETAIL --comment=" "
+	datahub pub $REPOSITORY/$DATAITEM:$Tag $TAGDETAIL --comment=" "
 
 输出
 
@@ -247,7 +247,7 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 
 ### 6. repo 命令
 
-#### 6.1 查询自己创建的和具有写权限的所有 repository
+#### 6.1 查询自己创建的和具有写权限的所有 Repository
 
 	datahub repo 
 
@@ -259,7 +259,7 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
     Internet_stats  
     Base_station_location
 
-#### 6.2 查询repository的详情
+#### 6.2 查询Repository的详情
 
 	datahub repo Internet_stats
 
@@ -273,20 +273,20 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
     Internet_stats/Ecommerce_goods
 	Internet_stats/Film_and_television
 
-#### 6.3 查询dataitem的详情
+#### 6.3 查询DataItem的详情
 
 	datahub repo  Internet_stats/Music
 
 输出
 
-	REPOSITORY/ITEM:TAG 						UPDATETIME  				 COMMENT
+	REPOSITORY/DATAITEM:TAG 						UPDATETIME  				 COMMENT
     -------------------------------------------------------------------------------------
-    Internet_stats/Music:music_baidumusic_6008  2016-03-04 09:15:18|6天前 	百度音乐
-    Internet_stats/Music:music_qqmusic_6001     2016-02-03 09:23:30|1个月前  	QQ音乐
-	Internet_stats/Music:music_kuwomusic_6005   2016-01-06 09:35:44|2个月前  	酷我音乐
+    Internet_stats/Music:music_baidumusic_6008      2016-03-04 09:15:18|6天前 	百度音乐
+    Internet_stats/Music:music_qqmusic_6001         2016-02-03 09:23:30|1个月前  	QQ音乐
+	Internet_stats/Music:music_kuwomusic_6005       2016-01-06 09:35:44|2个月前  	酷我音乐
 
 
-#### 6.4 删除自己创建的dataitem
+#### 6.4 删除自己创建的DataItem
 
 	datahub repo rm myrepo/myitem
 
@@ -296,9 +296,9 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
     Are you sure to delete the current DataItem?[Y or N]:Y
 	DataHub : OK
 
-说明：当此dataitem下有正在生效的订购计划时，会提示资费回退规则。
+说明：当此DataItem下有正在生效的订购计划时，会提示资费回退规则。
 
-#### 6.5 删除自己创建的tag
+#### 6.5 删除自己创建的Tag
 
 	datahub repo rm FavouriteMusic/MusicItem:bingyu
 
@@ -323,7 +323,7 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
     
 #### 8. ep 命令
 
-- 设置datahub daemon的entrypoint，作为数据提供方，需要提供可访问的url，供需求方访问，并下载数据。
+- 设置DataHub daemon的entrypoint，作为数据提供方，需要提供可访问的url，供需求方访问，并下载数据。
 - 此命令也可以用来查看是否设置了entrypoint。
 
 #### 9. logout 命令
@@ -369,27 +369,27 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 
 - 发布数据是数据提供方行为。
 
-在 DataHub 产品中，数据组织划分为 repository 、dataitem 、tag ，其中 repository 是数据仓库， dataitem 是一个数据项，包含一个主题的数据， tag 是一个具体的数据记录。
+在 DataHub 产品中，数据组织划分为 Repository 、DataItem 、Tag ，其中 Repository 是数据仓库， DataItem 是一个数据项，包含一个主题的数据， Tag 是一个具体的数据记录。
 
-提供方发布数据前要在本地基于已有数据建立一个 datapool，发布这个 datapool 里面的数据。
+提供方发布数据前要在本地基于已有数据建立一个 Datapool，发布这个 Datapool 里面的数据。
 
 假设在`/home/myusr/data/topub`目录下存在若干文件，现在想把这些文件发布为一些 tags ，等待需求方来下载。
 操作过程如下：
 
 	1) datahub dp create mydatapool file:///home/myusr/data
 
-以上命令创建了一个datapool，类型是file，路径是`/home/myusr/data`。
+以上命令创建了一个Datapool，类型是file，路径是`/home/myusr/data`。
 
 	2) datahub pub myrepo/myitem mydatapool://topub --accesstype=public --comment="my test item "
 
-发布一个名称为 myitem 的 dataitem ，所属 repository 是 myrepo ，对应 mydatapool 的子目录 topub ，即待发布数据存在于`/home/myusr/data/topub`中。
+发布一个名称为 myitem 的 DataItem ，所属 Repository 是 myrepo ，对应 mydatapool 的子目录 topub ，即待发布数据存在于`/home/myusr/data/topub`中。
 
->>>>注意：在发布 dataitem 之前，可以在其对应的目录里创建、编译三个文件：sample.md, meta.md, price.cfg。
+>>>>注意：在发布 DataItem 之前，可以在其对应的目录里创建、编译三个文件：sample.md, meta.md, price.cfg。
 
 这三个文件的作用分别是：
 * sample.md 用于保存 markdown 格式的样例数据，如果没有此文件，程序会读取此目录下的一个 tag 文件的前十行，作为样例数据，发布到 dataitem 的详情里。
 * meta.md 用于保存 markdown 格式的元数据。
-* price.cfg 用于保存 json 格式的资费计划，用来明确此 dataitem 的资费。格式如下：
+* price.cfg 用于保存 json 格式的资费计划，用来明确此 DataItem 的资费。格式如下：
 
 ```markdown
 {
@@ -415,20 +415,20 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 
 	3) datahub pub myrepo/myitem:mytag test.txt
 
-发布一名称为 mytag 的 tag ，所属 dataitem 是 myitem ，对应数据文件是 `/home/myusr/data/topub/test.txt`。
+发布一名称为 mytag 的 Tag ，所属 DataItem 是 myitem ，对应数据文件是 `/home/myusr/data/topub/test.txt`。
 
 ### 2. 下载数据
 
 - 下载数据是数据需求方的行为。
 
-需求方用户登录 http://hub.dataos.io ，查看、搜索 repository 、dataitem ，然后订购自己所需的 dataitem 。订购成功后，在 tag 详情页面，点击复制，复制 tag 全名，即可在客户端下载此 dataitem 下的 tag 所对应的数据。
+需求方用户登录 http://hub.dataos.io ，查看、搜索 Repository 、DataItem ，然后订购自己所需的 DataItem 。订购成功后，在 Tag 详情页面，点击复制，复制 Tag 全名，即可在客户端下载此 DataItem 下的 Tag 所对应的数据。
 
 DataHub Client 操作如下：
 
 	1）datahub dp create mydp file:///home/usr/data/itempull 
 
-以上命令创建了一个名为 mydp 的 datapool ，类型是 file ，路径是`/home/myusr/data/itempull`, 用于存储即将下载 的数据。
+以上命令创建了一个名为 mydp 的 Datapool ，类型是 file ，路径是`/home/myusr/data/itempull`, 用于存储即将下载 的数据。
 	
     2）datahub pull repotest/itemtest:tagtest mydp://mydir1 –d tagdestname.txt
 
-下载一个 tag 对应的数据到 mydp 中，子路径是 mydir1。
+下载一个 Tag 对应的数据到 mydp 中，子路径是 mydir1。
