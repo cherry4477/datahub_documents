@@ -1,6 +1,6 @@
 ---
 title: 加入我们
-published: false
+published: true
 taxonomy:
     category:
         - docs
