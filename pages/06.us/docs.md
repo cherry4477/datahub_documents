@@ -1,5 +1,6 @@
 ---
 title: 平台介绍
+published: false
 taxonomy:
     category:
         - docs
