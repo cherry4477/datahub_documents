@@ -325,6 +325,14 @@ DataHub Client 是 DataHub 的命令行客户端，用来执行 DataHub 相关�
 
 - 设置DataHub daemon的Entrypoint，作为数据提供方，需要提供可访问的url，供需求方访问，并下载数据。
 - 此命令也可以用来查看是否设置了Entrypoint。
+	datahub ep [http://HOST:PORT]
+
+例子：
+	datahub ep http://10.1.235.98:35800
+	
+	entrypoint: http://10.1.235.98:35800
+	
+	DataHub : OK. your entrypoint is: http://10.1.235.98:35800
 
 #### 9. logout 命令
 
