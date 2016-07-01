@@ -1,8 +1,8 @@
 ---
-title: 数据发布
+title: 发布数据
 ---
 
-数据发布是数据提供方的行为，需要在网页端和 Client 客户端分步操作。在网页端您可以完成：新增私有\开放 Repository 、修改私有\开放 Repository 、修改私有\开放 DataItem ，而新增私有\开放 DataItem 、新增 Tag 等则需要通过 Client 客户端来完成。
+发布数据是数据提供方的行为，需要在网页端和 Client 客户端分步操作。在网页端您可以完成：新增私有\开放 Repository 、修改私有\开放 Repository 、修改私有\开放 DataItem ，而新增私有\开放 DataItem 、新增 Tag 等则需要通过 Client 客户端来完成。
 
 **第一步：新增 Repository （网页端操作）**
 
